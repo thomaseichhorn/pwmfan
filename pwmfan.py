@@ -73,7 +73,7 @@ try :
 		handleFanSpeed ( )
 		time.sleep ( WAIT_TIME )
 
-except KeyboardInterrupt :#
+except KeyboardInterrupt :
 	# trap a CTRL+C keyboard interrupt
 	setFanSpeed ( FAN_HIGH )
 	# resets all GPIO ports used by this function
