@@ -7,7 +7,7 @@ import os
 # Configuration
 
 # Debug output?
-DEBUG = False
+DEBUG = True
 
 # BCM pin used to drive PWM fan
 FAN_PIN = 18
@@ -21,7 +21,7 @@ PWM_FREQ = 25000
 # Configurable temperature in [deg C] and fan speed in [%]
 MIN_TEMP = 45
 MAX_TEMP = 70
-FAN_LOW = 20
+FAN_LOW = 0
 FAN_HIGH = 100
 FAN_OFF = 0
 FAN_MAX = 100
