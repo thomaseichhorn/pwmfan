@@ -1,4 +1,6 @@
+from __future__ import print_function
 import RPi.GPIO as GPIO
+import datetime
 import time
 import signal
 import sys
@@ -13,7 +15,7 @@ DEBUG = True
 FAN_PIN = 18
 
 # Time to wait between each refresh in [s]
-WAIT_TIME = 1
+WAIT_TIME = 10
 
 # Frequency for PWM control in [Hz]
 PWM_FREQ = 25000
@@ -30,8 +32,6 @@ FAN_MAX = 100
 def getCpuTemperature ( ) :
 	res = os.popen ( 'vcgencmd measure_temp' ) .readline ( )
 	temp = ( res.replace ( "temp=", "" ) .replace ( "'C\n","" ) )
-	if DEBUG :
-		print ( "CPU Temp: {0}" .format ( temp ) )
 	return temp
 
 # Set fan speed as duty cycle [0..100]
@@ -45,20 +45,19 @@ def handleFanSpeed ( ) :
 	# Turn off the fan if the temperature is below MIN_TEMP
 	if temp < MIN_TEMP :
 		setFanSpeed ( FAN_OFF )
-		if DEBUG :
-			print ( "Fan OFF" )
+		fanspeed = FAN_OFF
 	# Set fan speed to MAXIMUM if the temperature is above MAX_TEMP
 	elif temp > MAX_TEMP :
 		setFanSpeed ( FAN_MAX )
-		if DEBUG :
-			print ( "Fan MAX" )
+		fanspeed = FAN_MAX
 	# Caculate dynamic fan speed
 	else :
 		step = ( FAN_HIGH - FAN_LOW ) / ( MAX_TEMP - MIN_TEMP)
 		temp -= MIN_TEMP
-		setFanSpeed ( FAN_LOW + ( round ( temp ) * step ) )
-		if DEBUG :
-			print ( "FAN ", FAN_LOW + ( round ( temp ) * step ) )
+		fanspeed = FAN_LOW + ( round ( temp ) * step )
+		setFanSpeed ( fanspeed )
+	if DEBUG :
+		print ( datetime.datetime.now ( ) .isoformat ( " " ), "%.2f" % temp, "%.2f" % fanspeed )
 	return ( )
 
 try :
@@ -81,4 +80,3 @@ except KeyboardInterrupt :
 	GPIO.cleanup ( )
 
 #
-
