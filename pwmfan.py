@@ -53,8 +53,8 @@ def handleFanSpeed ( ) :
 	# Caculate dynamic fan speed
 	else :
 		step = ( FAN_HIGH - FAN_LOW ) / ( MAX_TEMP - MIN_TEMP)
-		temp -= MIN_TEMP
-		fanspeed = FAN_LOW + ( round ( temp ) * step )
+		cooltemp = temp - MIN_TEMP
+		fanspeed = FAN_LOW + ( round ( cooltemp ) * step )
 		setFanSpeed ( fanspeed )
 	if DEBUG :
 		print ( datetime.datetime.now ( ) .isoformat ( " " ), "%.2f" % temp, "%.2f" % fanspeed )
