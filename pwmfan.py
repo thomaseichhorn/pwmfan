@@ -18,7 +18,7 @@ FAN_PIN = 18
 WAIT_TIME = 10
 
 # Frequency for PWM control in [Hz]
-PWM_FREQ = 25000
+PWM_FREQ = 200
 
 # Configurable temperature in [deg C] and fan speed in [%]
 MIN_TEMP = 45
