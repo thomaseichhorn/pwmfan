@@ -9,7 +9,7 @@ import os
 # Configuration
 
 # Debug output?
-DEBUG = True
+DEBUG = False
 
 # BCM pin used to drive PWM fan
 FAN_PIN = 18
